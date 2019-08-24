@@ -58,8 +58,6 @@ public class LoginServlet extends HttpServlet {
 //			view="/";
 			response.sendRedirect(request.getContextPath());
 			
-			
-			
 		}else {
 			//로그인이 안됬을때
 			msg="아이디나 비밀번호가 일치하지 않습니다!";
