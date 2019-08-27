@@ -1,0 +1,185 @@
+* {
+  margin:0px;
+  padding:0px;
+  box-sizing:border-box;
+  /* font-family:"Open Sans",sans-serif; */
+}
+body {
+  background:#ddd;
+}
+.form {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:480px;
+  height:400px;
+  background:#fdfdfd;
+  
+}
+.form .head {
+  width:100%;
+  height:55px;
+  display:flex;
+}
+.form .head > div {
+  width:50%;
+  height:100%;
+  text-align:center;
+  line-height:55px;
+  cursor:pointer;
+  background:transparent;
+  font-size:15px;
+}
+.form .head.signup > div:nth-child(1),.form .head > div:nth-child(2) {
+  background:#eee;
+  /* color:black; */
+}
+.form .head.signup > div:nth-child(2) {
+  background:transparent !important;
+}
+
+
+.form .body {
+  position:absolute;
+  overflow:hidden;
+  width:100%;
+  height:100%;
+}
+.form .body > div {
+  position:absolute;
+  width:100%;
+  height:100%;
+  transition:all 300ms ease-in-out;
+}
+.form .body > div.login {
+  left:0%;
+}
+.form .body > div.signup {
+  left:100%;
+}
+.form .body.active > div.login {
+  left:-100%;
+}
+.form .body.active > div.signup {
+  left:0%;
+}
+.form .body .form-row {
+  border-top:1px solid #ccc;
+}
+.form .body .form-row label {
+  display:block;
+  padding:12px 10px 0px;
+  font-size:12px;
+  font-weight:600;
+  text-transform:uppercase;
+}
+.form .body .form-row input {
+  width:100%;
+  border:none;
+  outline:none;
+  height:32px;
+  text-indent:10px;
+  font-size:14px;
+}
+
+.form .body .form-row button {
+  width:50%;
+  border:none;
+  outline:none;
+  border-radius: 15px;
+  height:40px;
+  background:#ff6f61;
+  color:#fcfcfc;
+  font-size:16px;
+  cursor:pointer;
+  margin: 24px 25%;
+}
+.form .body .form-row button:hover{
+  background: cornflowerblue;
+}
+
+.form .body .signup .form-row button {
+  background:#ff6f61;
+  margin-top: 13px;
+}
+.form .body .signup .form-row button:hover{
+  background: cornflowerblue;
+}
+.form .body .rem-row {
+  padding:10px;
+  border-top:1px solid #ccc;
+  line-height:15px;
+}
+.form .body .rem-row > input {
+  width:17px;
+  height:17px;
+  border:1px solid #999;
+  border-radius:0px;
+  position:relative;
+  top:1px;
+}
+.form .body .rem-row > label {
+  font-size:15px;
+  margin-left:5px;
+  cursor:pointer;
+}
+.form .body .row {
+  text-align:center;
+  padding:8px 0px;
+}
+.form .body .row span {
+  font-size:14px;
+  position:relative;
+  color:#222;
+  top:5px;
+  font-weight:600;
+}
+.form .body .footer {
+  position:absolute;
+  bottom:50px;
+  width:100%;
+  border-top:1px solid #ccc;
+}
+.form .body .footer > div.social-form {
+  float:left;
+  padding-left:50px;
+  width:50%;
+  height:100px;
+  line-height:90px;
+  /* text-indent:0%; */
+  /* color:#fcfcfc; */
+  position:relative;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.form .body .footer i {
+  position:absolute;
+  width:40px;
+  height:40px;
+  left:0px;
+  line-height:40px;
+  background:rgba(0,0,0,0.3);
+  text-align:center;
+}
+.form .body .footer .fb {
+  color:#2163af;
+}
+.form .body .footer .fb:hover{
+  color: #517fa4;
+}
+.form .body .footer .google {
+  color:#e54d26;
+}
+.form .body .footer .google:hover {
+  color: #ff6f61;
+}
+.fa-facebook, .fa-google-plus-g{
+  font-size:25px;
+}
+/* .form .head .login-tab{
+  color:#ff6f61;
+} */
+
+  
