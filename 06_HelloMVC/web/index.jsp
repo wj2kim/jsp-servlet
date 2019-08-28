@@ -4,7 +4,7 @@
 
 	<!-- header -->
 	<%@ include file="views/common/header.jsp"%>
-	<%-- <%@ inclide file="js/jqeury-3.4.1.min.lnk" type="text/javascript"%> --%>
+	<%-- <%@ include file="js/jqeury-3.4.1.min.lnk" type="text/javascript"%> --%>
 	
 	<!-- section -->
 		<section id="content">

@@ -3,6 +3,16 @@
 <%@ page import="com.kh.member.model.vo.Member" %>
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember");
+	Cookie[] cookies=request.getCookies();
+	String saveId=null;
+	for(Cookie c:cookies){
+		// getName()= key 값 가지고 오기 , getValue()= value 값 가지고 오기 
+				System.out.println("key : "+c.getName());
+				System.out.println("value : "+c.getValue());
+				if(c.getName().equals("saveId")){
+					saveId=c.getValue();
+				} 
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +34,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="button" value="내정보보기">
+								<input type="button" value="내정보보기" onclick="location.href='<%=request.getContextPath()%>/myPage?userId=<%=loginMember.getUserId()%>';">
 								<input type="button" value="logout" onclick="location.href='<%=request.getContextPath()%>/logout';"> 
 								<!-- 항상 절대경로(absolute으로 써야한다) -->
 							</td>
@@ -37,7 +47,7 @@
 				onsubmit="return validate();">
 				<table>
 					<tr>
-						<td ><input type="text" name="userId" id="userId" placeholder="아이디 입력"></td>
+						<td ><input type="text" name="userId" id="userId" placeholder="아이디 입력" value='<%=saveId!=null?saveId:""%>' %></td>
 						<td></td>
 					</tr>
 					<tr>
@@ -45,8 +55,9 @@
 						<td><input type="submit" value="로그인"></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="checkbox" name="saveId" id="saveId"><label for="saveId">아이디 저장</label>
-						&nbsp;&nbsp;<input type="button" value="회원가입" onclick=""></td>
+						<td colspan="2"><input type="checkbox" name="saveId" id="saveId"
+						<%=saveId!=null?"checked":""%>><label for="saveId">아이디 저장</label>
+						&nbsp;&nbsp;<input type="button" value="회원가입" onclick="location.href='<%=request.getContextPath()%>/memberEnroll';"></td>
 					</tr>
 				</table>
 			</form>
@@ -57,7 +68,7 @@
 	<!-- 메인메뉴 -->
 			<nav>
 				<ul class="main-nav">
-					<li class="home"><a href="#">Home</a></li>
+					<li class="home"><a href="<%=request.getContextPath()%>/">Home</a></li>
 					<li id="notice"><a href="#">공지사항</a></li>
 					<li id="board"><a href="#">게시판</a></li>
 					<li id="gallary"><a href="#">사진게시판</a></li>
