@@ -23,8 +23,7 @@
 <%@ include file="/views/common/header.jsp"%>
 	<section id="enroll-container">
 	<h2>회원정보수정</h2>
-	<form action="<%=request.getContextPath()%>/memberUpdate"
-	name="updateMemberFrm" method="post" onsubmit="return update_validate();">
+	<form name="updateMemberFrm" method="post" onsubmit="return update_validate();">
 		<table>
 			<tr>
 				<th>아이디</th>
@@ -93,20 +92,37 @@
 				</td>
 			</tr>
 		</table>
+		<input type="button" onclick="fn_updatePassword();" value="비밀번호변경">
 		<input type="submit" onclick="fn_updateMember();" value="정보수정">
 		<input type="button" onclick="fn_deleteMember();" value="탈퇴하기">
 	</form>
 	</section>
 	<script>
+		function update_validate(){
+			//정규표현식 이용해서 수정하는 값에 제한사항 걸기
+			return true;
+		}
+		
 		function fn_updateMember(){
-			var name=$("#userName").val();
-			var age=$("#age").val();
-			var email=$("#email").val();
-			var phone=$("#phone").val();
-			var address=$("#address").val();
-			var hobby=document.getElementsByName(hobby).val();;
-
-			
+			updateMemberFrm.action="<%=request.getContextPath()%>/memberUpdate";
+			updateMemberFrm.submit(); //데이터 전송
+		}
+		
+		function fn_deleteMember(){
+			var con=confirm("정말 탈퇴하시겠습니까?");
+			if(con==true){
+			updateMemberFrm.action="<%=request.getContextPath()%>/memberDelete";
+			updateMemberFrm.submit(); //데이터 전송				
+			}else{
+				return;
+			}
+		}
+		function fn_updatePassword(){
+			var url="<%=request.getContextPath()%>/updatePassword?userId="+$('#userId_').val();
+			var title="UpdatePassword";
+			var status="left=500px,top=100px,width=400px, height=220px,scrollbars=yes";
+			var popup=open(url,title,status);			
+	
 		}
 	</script>
 <%@ include file="/views/common/footer.jsp"%>

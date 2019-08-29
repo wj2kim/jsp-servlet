@@ -110,14 +110,11 @@
 		});
 		
 		function checkIdDuplicate(){
-			if(validate()==false){
-				return;
-			}else{
 			var url="<%=request.getContextPath()%>/checkIdDuplicate?userId="+$('#userId_').val();
 			var title="checkId";
-			var status="left=500px,top=100px,width=300px, height=200px,scrollbars=yes";
+			var status="left=500px, top=100px, width=300px, height=200px, scrollbars=yes";
 			var popup=open(url,title,status);			
-			}
+
 		}
 	<%-- 	
 		$(function(){

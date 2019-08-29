@@ -159,4 +159,39 @@ public class MemberDao {
 		System.out.println(result);
 		return result;
 	}
+	
+	public int memberDelete(Connection conn, String id) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public int passwordUpdate(Connection conn,String oripw, String id, String pw) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("updatePassword");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, pw);
+			pstmt.setString(2, id);
+			pstmt.setString(3, oripw);
+			result=pstmt.executeUpdate();
+			System.out.println(result);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
 }

@@ -55,4 +55,31 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	public int memberDelete(String id) {
+		Connection conn=getConnection();
+		int result=dao.memberDelete(conn, id);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public int passwordUpdate(String id, String oripw, String pw) {
+		Connection conn=getConnection();
+		System.out.println(id);
+		System.out.println(oripw);
+		System.out.println(pw);
+		int result=dao.passwordUpdate(conn, id, pw, oripw);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 }
