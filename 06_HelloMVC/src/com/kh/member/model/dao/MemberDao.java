@@ -176,17 +176,20 @@ public class MemberDao {
 		return result;
 	}
 	
-	public int passwordUpdate(Connection conn,String oripw, String id, String pw) {
+	public int passwordUpdate(Connection conn,String id, String oripw, String pw) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		String sql=prop.getProperty("updatePassword");
+		System.out.println(id);
+		System.out.println(oripw);
+		System.out.println(pw);
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, pw);
 			pstmt.setString(2, id);
 			pstmt.setString(3, oripw);
 			result=pstmt.executeUpdate();
-			System.out.println(result);
+
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

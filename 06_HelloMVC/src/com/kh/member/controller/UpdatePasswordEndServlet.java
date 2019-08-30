@@ -42,14 +42,15 @@ public class UpdatePasswordEndServlet extends HttpServlet {
 		
 		if(result>0) {
 			msg="비밀번호 변경이 완료되었습니다!";
+			request.setAttribute("closeMsg", "close");
 			
 		}else {
-			msg="비밀번호 변경에 실패하셨습니다! 다시 시도해 주세요.";	
+			msg="현재비밀번호가 맞지 않습니다!";	
+			request.setAttribute("loc", "/updatePassword?userId="+ id);
 		}
 		request.setAttribute("msg", msg);
-		System.out.println(msg);
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/views/member/updatePw.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/views/common/msg.jsp");
 		rd.forward(request, response);
 		
 	}

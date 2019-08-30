@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%
 	String userId=request.getParameter("userId");
-	String msg=(String)request.getAttribute("msg");
+/* 	String msg=(String)request.getAttribute("msg");
+	String loc=(String)request.getAttribute("loc"); */
 %>
 <!DOCTYPE html>
 <html>
@@ -29,7 +30,7 @@
         <table>
             <tr>
                 <th>현재비밀번호</th>
-                <td><input type="password" name="cPw" id="cPw"></td>
+                <td><input type="password" name="cPw" id="cPw" autofocus="true"></td>
             </tr>
             <tr>
                 <th>새비밀번호</th>
@@ -37,7 +38,7 @@
             </tr>
             <tr>
                 <th>비밀번호확인</th>
-                <td><input type="password" id="ckPw"></td>
+                <td><input type="password" id="ckPw" ></td>
             </tr>
             <tr>
                 <td colspan='2'>
@@ -68,8 +69,18 @@
 				alert("현재 비밀번호가 비어있습니다.");
 				return false;
 			}
+			var newpw=$("#ckPw").val().trim();
+			if(newpw.length<=0){
+				alert("비밀번호 확인을 해주세요.");
+				return false;
+			}
 			return true;
 		}
+		
+<%-- 		if(<%=msg%>!=null){
+			alert('<%=msg%>');
+			location.href="<%=request.getContextPath()%><%=loc%>";
+			} --%>
 	</script>
 </body>
 </html>

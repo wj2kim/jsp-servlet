@@ -69,10 +69,7 @@ public class MemberService {
 	
 	public int passwordUpdate(String id, String oripw, String pw) {
 		Connection conn=getConnection();
-		System.out.println(id);
-		System.out.println(oripw);
-		System.out.println(pw);
-		int result=dao.passwordUpdate(conn, id, pw, oripw);
+		int result=dao.passwordUpdate(conn, id, oripw, pw);
 		if(result>0) {
 			commit(conn);
 		}else {
