@@ -1,23 +1,22 @@
 @charset "UTF-8";
+	body {font-family:"휴먼모음T";}
+	div, section, header, aside, footer {padding:10px;}
 
-   body {font-family:"휴먼모음T";}
-   div, section, header, aside, footer {padding:10px;}
+	/********** 전체컨테이너 **********/
+	section#container	{background-color:#F0F0F0; width:960px; margin:0 auto;}
 
-   /********** 전체컨테이너 **********/
-   section#container   {background-color:#F0F0F0; width:960px; margin:0 auto;}
-
-   /********** header **********/
-   header         {background-color:#cacaca; height:130px; position:relative; padding:10px 0 0 0;}
-   header h1       {margin-left:10px;}
+	/********** header **********/
+	header			{background-color:#00bcd4; height:130px; position:relative; padding:10px 0 0 0;}
+	header h1 		{margin-left:10px;}
 
 
-   /********** content **********/
-   section#content   { background-color:#F5F5F5; float:left; width:100%; min-height:500px; }
+	/********** content **********/
+	section#content	{ background-color:#F5F5F5; float:left; width:100%; min-height:500px; }
 
-   /********** footer **********/
-   footer         { background-color:#cacaca; clear:both; height:75px; text-align:center;padding-top:40px;}
-   
-   	/* 로그인컨테이너 */
+	/********** footer **********/
+	footer			{ background-color:#00bcd4; clear:both; height:75px; text-align:center;padding-top:40px;}
+
+	/* 로그인컨테이너 */
 	header div.login-container{width:250px; position:absolute; right: 0px; top: 10px;}
 
 	/* 로그인테이블관련 : 탭순서를 고려해 submit버튼이 2번째행 2번째열에 배치 */
@@ -52,30 +51,26 @@
 		display: block;
 		padding:.5em;
 		text-decoration: none;
-		color: #fdfdfd;
+		color: #292929;
 	}
 	
 	/* hover시 배경색 변경 */
 	ul.main-nav li:hover{
-		background-color: #darkblue;
+		background-color: #3300ff;
 	}
 	ul.main-nav li:hover > a{
 		color:#FFF; /* 글자색*/
 	}
-   
-   div.login-container table#logged-in{
-   		border-spacing:10px;
-   }
-   div.login-container table#loggd-in input[type=button]{
-   		border-radius:5px;
-   }
-   
+	div.login-container table#logged-in{
+		border-spacing:10px;
+	}
+	div.login-container table#logged-in input[type=button]{
+		border-radius:5px;
+	}
 
-
-   /* 회원 가입페이지  */
-
-   	section#enroll-container{
-		   text-align: center;
+/* 회원가입페이지 */
+	section#enroll-container{
+		text-align:center;
 	}
 	section#enroll-container input{
 		margin:3px;
@@ -84,8 +79,31 @@
 		margin:0 auto;
 	}
 	section#enroll-container table th{
-		padding:0 10px; text-align: right;
+		padding:0 10px; text-align:right;
 	}
 	section#enroll-container table td{
-		padding:0 10px; text-align: left;
+		padding:0 10px; text-align:left;
 	}
+
+ul.main-nav li span.animate_line{
+	position:absolute;
+	left:0;
+	bottom:0;
+	width:0;
+	height:0;
+	background-color:#FCE72E;
+	transition:.2s;
+}
+ul.main-nav li:hover span.animate_line{
+	width:100%;
+}
+
+
+
+
+
+
+
+
+
+

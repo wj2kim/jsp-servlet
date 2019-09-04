@@ -2,7 +2,6 @@ package com.kh.member.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
-
 /**
- * Servlet implementation class JoinServlet
+ * Servlet implementation class MemberEnrollEndServlet
  */
-@WebServlet(name = "EnrollServlet", urlPatterns ="/memberEnrollEnd")
+@WebServlet(name="memberEnrollEnd",urlPatterns = "/memberEnrollEnd")
 public class MemberEnrollEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,56 +30,32 @@ public class MemberEnrollEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		//클라이언트가 보낸 값 받아오기 
-		String id=request.getParameter("userId");
+		// TODO Auto-generated method stub
+		//client가 보낸 값 받기!
+		String id=request.getParameter("userId");//userId_
 		String pw=request.getParameter("password");
 		String name=request.getParameter("userName");
-		int age=Integer.parseInt(request.getParameter("age"));
-		String email=request.getParameter("email");
-		String phone=request.getParameter("phone");
-		String address=request.getParameter("address");
 		char gender=request.getParameter("gender").charAt(0);
-		String hobby=String.join("," , request.getParameterValues("hobby"));
+		int age=Integer.parseInt(request.getParameter("age"));
+		String address=request.getParameter("address");
+		String phone=request.getParameter("phone");
+		String email=request.getParameter("email");
+		String[] hobby=request.getParameterValues("hobby");
+		//vo객체 이용해서 DB에 전송
+		String hobbys=String.join(",", hobby);
+		Member m=new Member(id,pw,name,gender,
+				age,email,phone,address,hobbys,null);
 		
-		Member m=new Member();
-		m.setUserId(id);
-		m.setPassword(pw);
-		m.setUserName(name);
-		m.setAge(age);
-		m.setEmail(email);
-		m.setPhone(phone);
-		m.setAddress(address);
-		m.setGender(gender);
-		m.setHobby(hobby);
+		//비지니스로직!
+		//사용자가 보내준 데이터를 DB에 저장하고 결과를 반환
+		int result=new MemberService().insertMember(m);
 		
-		
-		System.out.println(m);
-		
-		// 비지니스 로직 수행 (회원가입)
-		MemberService service=new MemberService();
-		int result=service.memberJoin(m);
-		
-		String msg="";
+		String msg=result>0?"가입완료!":"가입실패!";
 		String loc="/";
-		String view="";
-		
-		if(result>0) {
-			msg="회원가입에 성공하셨습니다!";
-			
-		}else {
-			msg="회원가입에 실패하셨습니다!";
-		}
-		
-		view="/views/common/msg.jsp";
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		RequestDispatcher rd=request.getRequestDispatcher(view);
-		rd.forward(request, response);
-		
-		
-		
-		
+		request.getRequestDispatcher("/views/common/msg.jsp")
+		.forward(request,response);	
 	}
 
 	/**

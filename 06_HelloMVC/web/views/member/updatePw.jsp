@@ -2,18 +2,16 @@
     pageEncoding="UTF-8"%>
 <%
 	String userId=request.getParameter("userId");
-/* 	String msg=(String)request.getAttribute("msg");
-	String loc=(String)request.getAttribute("loc"); */
-%>
+%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>비밀번호 변경</title>
+<title>비밀번호변경</title>
 <script src='<%=request.getContextPath() %>/js/jquery-3.4.1.min.js'></script>
-<style>
+    <style>
     div#updatePassword-container{
-        background:#fdfdfd;
+        background:red;
     }
     div#updatePassword-container table {
         margin:0 auto;
@@ -22,15 +20,16 @@
     div#updatePassword-container table tr:last-of-type td {
         text-align:center;
     }
-</style>
+    </style>
 </head>
 <body>
 	<div id="updatePassword-container">
-        <form action="<%=request.getContextPath() %>/updatePasswordEnd" name="updatePwdFrm" method="post">
+        <form action="<%=request.getContextPath()  %>/updatePasswordEnd" 
+        name="updatePwdFrm" method="post">
         <table>
             <tr>
                 <th>현재비밀번호</th>
-                <td><input type="password" name="cPw" id="cPw" autofocus="true"></td>
+                <td><input type="password" name="cPw" id="cPw"></td>
             </tr>
             <tr>
                 <th>새비밀번호</th>
@@ -38,49 +37,49 @@
             </tr>
             <tr>
                 <th>비밀번호확인</th>
-                <td><input type="password" id="ckPw" ></td>
+                <td><input type="password" id="ckPw"></td>
             </tr>
             <tr>
                 <td colspan='2'>
-                    <input type="submit" onclick="return password_validate();" value="변경">
-                    <input type="button" onclick="self.close();" value="닫기">
+                    <input type="submit" 
+                    onclick="return password_validate();" value='변경'>
+                    <input type="button" onclick="self.close();" 
+                    value="닫기">
                 </td>
             </tr>
-            <input type="hidden" value="<%=userId%>" name="userId" >
+			<input type="hidden" value="<%=userId  %>" name="userId"/>
         </table>
         </form>
-	</div>
-	<script>
-		$(function(){
-			$('#ckPw').blur(function(){
-				var pw=$('#nPw').val().trim();
-				var pwck=$(this).val().trim();
-				if(pw!=pwck){
-					alert("비밀번호가 일치하지 않습니다.");
-					$("#nPw").val("");
-					$(this).val("");
-					$("#nPw").focus();
-				}
-			})
-		});
-		function password_validate(){
-			var current=$("#cPw").val().trim();
-			if(current.length<=0){
-				alert("현재 비밀번호가 비어있습니다.");
-				return false;
-			}
-			var newpw=$("#ckPw").val().trim();
-			if(newpw.length<=0){
-				alert("비밀번호 확인을 해주세요.");
-				return false;
-			}
-			return true;
-		}
-		
-<%-- 		if(<%=msg%>!=null){
-			alert('<%=msg%>');
-			location.href="<%=request.getContextPath()%><%=loc%>";
-			} --%>
-	</script>
+    </div> 
+    <script>
+    	$(function(){
+    		$('#ckPw').blur(function(){
+    			var pw=$('#nPw').val().trim();
+    			var pwck=$(this).val().trim();
+    			if(pw!=pwck){
+    				alert("비밀번호가 일치하지 않습니다.");
+    				$("#nPw").val("");
+    				$(this).val("");
+    				$("#nPw").focus();
+    			}
+    		});
+    	});
+    	function password_validate(){
+    		var current=$("#cPw").val().trim();
+    		if(current.length<=0){
+    			alert("현재 password가 비어있습니다.");
+    			return false;
+    		}
+    		return true;
+    	}
+    
+    
+    </script>   	
 </body>
 </html>
+
+
+
+
+
+

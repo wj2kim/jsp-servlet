@@ -8,15 +8,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import static common.template.JDBCTemplate.*;
 import com.kh.member.model.vo.Member;
-
-import common.template.JDBCTemplate;
+import static common.template.JDBCTemplate.close;
 
 public class MemberDao {
-	
-	private Properties prop=new Properties();
 
+	private Properties prop=new Properties();
+	
+	
 	public MemberDao() {
 		String path=MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
 		try {
@@ -26,23 +25,22 @@ public class MemberDao {
 		}
 	}
 	
-	public Member selectId(Connection conn, String id, String pw) {
+	public Member selectId(Connection conn,String id, String pw) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		Member m=null;
-		
 		String sql=prop.getProperty("selectId");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,id);
+			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				m=new Member();
 				m.setUserId(rs.getString("userid"));
 				m.setUserName(rs.getString("username"));
-				m.setGender((rs.getString("gender").charAt(0)));
 				m.setAge(rs.getInt("age"));
+				m.setGender(rs.getString("gender").charAt(0));
 				m.setEmail(rs.getString("email"));
 				m.setPhone(rs.getString("phone"));
 				m.setAddress(rs.getString("address"));
@@ -54,17 +52,14 @@ public class MemberDao {
 		}finally {
 			close(rs);
 			close(pstmt);
-		}return m;
+		}return m;		
 	}
+			
 	
-	public int memberJoin(Connection conn, Member m) {
+	public int insertMember(Connection conn,Member m) {
 		PreparedStatement pstmt=null;
 		int result=0;
-		String sql=prop.getProperty("register");
-		
-		System.out.println(prop.getProperty("register"));
-		System.out.println(m);
-		
+		String sql=prop.getProperty("insertMember");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, m.getUserId());
@@ -80,33 +75,9 @@ public class MemberDao {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		System.out.println(result);
-		return result;
+			close(pstmt);
+		}return result;
 	}
-	
-//	public boolean idCheck(Connection conn, String userId) {
-//		PreparedStatement pstmt=null;
-//		ResultSet rs=null;
-//		boolean result=true;
-//		
-//		String sql=prop.getProperty("checkId");
-//		try {
-//			pstmt=conn.prepareStatement(sql);
-//			pstmt.setString(1,userId);
-//			rs=pstmt.executeQuery();
-//			if(rs.next()) {
-//				return result;
-//			}
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			close(rs);
-//			close(pstmt);
-//			result=false;
-//		}return result;
-//	}
 	
 	public Member selectOne(Connection conn,String userId) {
 		PreparedStatement pstmt=null;
@@ -121,8 +92,8 @@ public class MemberDao {
 				m=new Member();
 				m.setUserId(rs.getString("userid"));
 				m.setUserName(rs.getString("username"));
-				m.setGender((rs.getString("gender").charAt(0)));
 				m.setAge(rs.getInt("age"));
+				m.setGender(rs.getString("gender").charAt(0));
 				m.setEmail(rs.getString("email"));
 				m.setPhone(rs.getString("phone"));
 				m.setAddress(rs.getString("address"));
@@ -136,65 +107,71 @@ public class MemberDao {
 			close(pstmt);
 		}return m;
 	}
-	
-	public int memberUpdate(Connection conn, Member m) {
+
+	public int updateMember(Connection conn, Member m) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		String sql=prop.getProperty("updateMember");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, m.getUserName());
-			pstmt.setInt(2, m.getAge());
-			pstmt.setString(3, m.getEmail());
-			pstmt.setString(4, m.getPhone());
-			pstmt.setString(5, m.getAddress());
-			pstmt.setString(6, m.getHobby());
-			pstmt.setString(7, m.getUserId());
+			pstmt.setString(2,String.valueOf(m.getGender()));
+			pstmt.setInt(3,m.getAge());
+			pstmt.setString(4,m.getEmail());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getHobby());
+			pstmt.setString(8, m.getUserId());			
+			
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		System.out.println(result);
-		return result;
+			close(pstmt);
+		}return result;
 	}
 	
-	public int memberDelete(Connection conn, String id) {
+	public int deleteMember(Connection conn, String userId) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		String sql=prop.getProperty("deleteMember");
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, userId);
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		return result;
+			close(pstmt);
+		}return result;
+		
 	}
-	
-	public int passwordUpdate(Connection conn,String id, String oripw, String pw) {
+
+	public int updatePassword(Connection conn, String userId, String pw) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		String sql=prop.getProperty("updatePassword");
-		System.out.println(id);
-		System.out.println(oripw);
-		System.out.println(pw);
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, pw);
-			pstmt.setString(2, id);
-			pstmt.setString(3, oripw);
+			pstmt.setString(2, userId);
 			result=pstmt.executeUpdate();
-
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JDBCTemplate.close(pstmt);
-		}
-		return result;
+			close(pstmt);
+		}return result;
 	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+

@@ -2,7 +2,6 @@ package com.kh.member.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,17 +29,16 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		//getSession(true/false);
-		//getSession(true) : 세션 아이디가 있으면 가지고 오고 없으면 생성해서 가져와라 라는 명령어다. 
-		//getSession(false) : 세션 아이디가 있으면 가지고 오고 없으면 null값을 반환해라 라는 명령어다.
-		
+		//getSession(true) : 세션아이디가 있으면? 가져오고
+						   //없으면 생성해서 가져와라
+		//getSessoin(false) : 세션아이디 있으면 가져오고 
+		                   //없으면 null값!
 		HttpSession session=request.getSession(false);
 		if(session!=null) {
 			session.invalidate();
-			response.sendRedirect(request.getContextPath());
 		}
-		
+		response.sendRedirect(request.getContextPath());
+	
 	}
 
 	/**

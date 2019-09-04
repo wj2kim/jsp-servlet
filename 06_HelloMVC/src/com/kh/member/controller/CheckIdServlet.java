@@ -30,48 +30,24 @@ public class CheckIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		String userId=request.getParameter("userId");
 		System.out.println(userId);
-		
+	
+		//비지니스처리로직
+		//DB에 userId와 일치하는 id가 member table에 있는지 
+		//확인하고 있으면 true, 없으면 false반환하기!
 		boolean unable=new MemberService().selectOne(userId)!=null?true:false;
+		
+//		Member m=new MemberService().selectOne(userId);
+//		if(m==null) unable=false;
+//		else unable=true;
 		request.setAttribute("unable", unable);
 		
-		System.out.println(unable);
-		
-		// view 선택 
+		//view선택!
 		RequestDispatcher rd=request.getRequestDispatcher("/views/member/checkId.jsp");
 		rd.forward(request, response);
-		
-		String selectId=request.getParameter("selectId");
-		
-		
-		
-//		MemberService service=new MemberService();
-//		Boolean result=service.checkId(userId);
-//		System.out.println(result);
-		
-		//view 선택! 
-//		String msg="";
-//		String loc="/";
-//		String view="";
-//		
-//		if(result==true) {
-//			msg="사용하실 수 없습니다!";
-//			view="/views/common/msg.jsp";
-//			request.setAttribute("msg", msg);
-//			request.setAttribute("loc", loc);
-//			RequestDispatcher rd=request.getRequestDispatcher(view);
-//			rd.forward(request, response);
-//			
-//		}else {
-//			msg="사용 가능합니다!";
-//			view="/views/common/msg.jsp";
-//			request.setAttribute("msg", msg);
-//			request.setAttribute("loc", loc);
-//			RequestDispatcher rd=request.getRequestDispatcher(view);
-//			rd.forward(request, response);
-//		}
+	
 	}
 
 	/**

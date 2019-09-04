@@ -1,12 +1,14 @@
 package com.kh.member.model.service;
 
-import static common.template.JDBCTemplate.*;
+import static common.template.JDBCTemplate.getConnection;
+import static common.template.JDBCTemplate.commit;
+import static common.template.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
-
+import static common.template.JDBCTemplate.close;
 public class MemberService {
 
 	private MemberDao dao=new MemberDao();
@@ -18,24 +20,14 @@ public class MemberService {
 		return m;
 	}
 	
-	public int memberJoin(Member m) {
+	public int insertMember(Member m) {
 		Connection conn=getConnection();
-		int result=dao.memberJoin(conn,m);
-		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
+		int result=dao.insertMember(conn,m);
+		if(result>0) {commit(conn);}
+		else {rollback(conn);}
 		close(conn);
-		return result;
+		return result;	
 	}
-	
-//	public boolean checkId(String userId) {
-//		Connection conn=getConnection();
-//		boolean result=dao.idCheck(conn,userId);
-//		close(conn);
-//		return result;
-//	}
 	
 	public Member selectOne(String userId) {
 		Connection conn=getConnection();
@@ -44,39 +36,57 @@ public class MemberService {
 		return m;
 	}
 	
-	public int memberUpdate(Member m) {
+	
+	public int updateMember(Member m) {
 		Connection conn=getConnection();
-		int result=dao.memberUpdate(conn, m);
-		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
+		int result=dao.updateMember(conn,m);
+		if(result>0) {commit(conn);}
+		else {rollback(conn);}
 		close(conn);
 		return result;
 	}
-	public int memberDelete(String id) {
+	
+	public int deleteMember(String userId) {
 		Connection conn=getConnection();
-		int result=dao.memberDelete(conn, id);
-		if(result>0) {
-			commit(conn);
+		int result=dao.deleteMember(conn,userId);
+		if(result>0) {commit(conn);}
+		else {rollback(conn);}
+		close(conn);
+		return result;
+	}
+	
+	public int updatePassword(String userId, String cPw, String nPw){
+		Connection conn=getConnection();
+		//현재비밀번호가 일치한지확인
+		Member m=dao.selectId(conn, userId, cPw);
+		int result=0;
+		if(m==null) {
+			//현재비밀번호를 모르고있음.. 이녀석 누규??
+			result=-1;
 		}else {
-			rollback(conn);
+			result=dao.updatePassword(conn,userId, nPw);
+			if(result>0) {commit(conn);}
+			else {rollback(conn);}
 		}
 		close(conn);
 		return result;
 	}
 	
-	public int passwordUpdate(String id, String oripw, String pw) {
-		Connection conn=getConnection();
-		int result=dao.passwordUpdate(conn, id, oripw, pw);
-		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		return result;
-	}
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

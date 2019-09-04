@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class UpdatePasswordServlet
  */
-@WebServlet("/updatePassword")
+@WebServlet("/member/updatePassword")
 public class UpdatePasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,10 +26,9 @@ public class UpdatePasswordServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		
-		request.getRequestDispatcher("views/member/updatePw.jsp").forward(request, response);
-		
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/views/member/updatePw.jsp")
+		.forward(request, response);
 	}
 
 	/**

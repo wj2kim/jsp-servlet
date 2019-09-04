@@ -2,13 +2,11 @@ package com.kh.member.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
@@ -16,7 +14,7 @@ import com.kh.member.model.vo.Member;
 /**
  * Servlet implementation class MemberUpdateServlet
  */
-@WebServlet("/memberUpdate")
+@WebServlet("/member/memberUpdate")
 public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,46 +30,39 @@ public class MemberUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//회원정보를 수정하는 서블릿!
+		Member m=new Member(request.getParameter("userId"),
+				"",request.getParameter("userName"),
+				request.getParameter("gender").charAt(0),
+				Integer.parseInt(request.getParameter("age")),
+				request.getParameter("email"),
+				request.getParameter("phone"),
+				request.getParameter("address"),
+				String.join(",",request.getParameterValues("hobby")),
+				null);
 		
-		String id=request.getParameter("userId");
-		String name=request.getParameter("userName");
-		int age=Integer.parseInt(request.getParameter("age"));
-		String email=request.getParameter("email");
-		String phone=request.getParameter("phone");
-		String address=request.getParameter("address");
-		String hobby=String.join("," , request.getParameterValues("hobby"));
-		
-		Member m=new Member();
-		m.setUserId(id);
-		m.setUserName(name);
-		m.setAge(age);
-		m.setEmail(email);
-		m.setPhone(phone);
-		m.setAddress(address);
-		m.setHobby(hobby);
-		
-		System.out.println(m);
-		
-		MemberService service=new MemberService();
-		int result=service.memberUpdate(m);
+		//비지니스로직 수행
+		int result=new MemberService().updateMember(m);
 		
 		String msg="";
-		String loc="/";
-		String view="";
-		
+		String loc="";
 		if(result>0) {
-			msg="회원정보 수정에 성공하셨습니다!";
-			
+			msg="회원정보 수정이 완료되었습니다.!";
+			loc="/";
 		}else {
-			msg="회원정보 수정에 실패하셨습니다!";
-			loc="/memberView?userId="+m.getUserId();
+			msg="회원정보 수정 실패 다시 수정해주세요!";
+			loc="/member/memberView?userId="+m.getUserId();
 		}
+		request.setAttribute("msg",msg);
+		request.setAttribute("loc",loc);
+		request.getRequestDispatcher("/views/common/msg.jsp")
+		.forward(request,response);
+				
+				
 		
-		view="/views/common/msg.jsp";
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		RequestDispatcher rd=request.getRequestDispatcher(view);
-		rd.forward(request, response);
+		
+		
 	}
 
 	/**

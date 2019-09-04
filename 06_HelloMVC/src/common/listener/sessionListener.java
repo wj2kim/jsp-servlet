@@ -7,19 +7,18 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * Application Lifecycle Listener implementation class sessionListener
+ * Application Lifecycle Listener implementation class SessionListener
  *
  */
 @WebListener
-public class sessionListener implements HttpSessionListener, HttpSessionAttributeListener {
+public class SessionListener implements HttpSessionListener, HttpSessionAttributeListener {
 
+	private int count=0;
+	
     /**
      * Default constructor. 
      */
-	
-	private int count=0;
-	
-    public sessionListener() {
+    public SessionListener() {
         // TODO Auto-generated constructor stub
     }
 
@@ -27,38 +26,40 @@ public class sessionListener implements HttpSessionListener, HttpSessionAttribut
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
     public void sessionCreated(HttpSessionEvent arg0)  { 
-//         	System.out.print("세션 생성");
-//         	count ++;
+        System.out.print("세션 생성");
+        //count++;
     }
 
 	/**
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
-    public void sessionDestroyed(HttpSessionEvent arg0)  { 
-//	    	System.out.print("세션 종료");
-//	     	count --;
+    public void sessionDestroyed(HttpSessionEvent se)  { 
+        System.out.println("세션종료");
+        //count--;
     }
 
 	/**
      * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
      */
-    public void attributeAdded(HttpSessionBindingEvent arg0)  { 
-         	count ++;
-         	System.out.print("세션 생성 : "+count+" ");
+    public void attributeAdded(HttpSessionBindingEvent event)  { 
+    	count++;
+    	System.out.println("세션생성 : "+count);
     }
 
 	/**
      * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
      */
-    public void attributeRemoved(HttpSessionBindingEvent arg0)  { 
-    	count --;
-    	System.out.print("세션 종료 : "+count+" ");
+    public void attributeRemoved(HttpSessionBindingEvent event)  { 
+         // TODO Auto-generated method stub
+    	count--;
+    	System.out.println("세션삭제 : "+count);
+    	
     }
 
 	/**
      * @see HttpSessionAttributeListener#attributeReplaced(HttpSessionBindingEvent)
      */
-    public void attributeReplaced(HttpSessionBindingEvent arg0)  { 
+    public void attributeReplaced(HttpSessionBindingEvent event)  { 
          // TODO Auto-generated method stub
     }
 	

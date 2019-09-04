@@ -3,7 +3,7 @@ package com.kh.member.model.vo;
 import java.sql.Date;
 
 public class Member {
-	
+
 	private String userId;
 	private String password;
 	private String userName;
@@ -13,7 +13,7 @@ public class Member {
 	private String phone;
 	private String address;
 	private String hobby;
-	private Date enrollDate;;
+	private Date enrollDate;
 	
 	public Member() {
 		// TODO Auto-generated constructor stub
@@ -121,6 +121,4 @@ public class Member {
 				+ ", enrollDate=" + enrollDate + "]";
 	}
 	
-	
-
 }
