@@ -56,7 +56,6 @@ public class NoticeWriteEndServlet extends HttpServlet {
 		//저장경로 설정
 		String root=getServletContext().getRealPath("/");
 		String saveDir=root+"/upload/notice";
-		System.out.println(saveDir);
 		//String saveDir2=root+File.separator+"upload"+File.separator+"notice";
 		//업로드 파일 크기 설정
 		int maxSize=1024*1024*10;
@@ -80,10 +79,12 @@ public class NoticeWriteEndServlet extends HttpServlet {
 		String writer=mr.getParameter("writer");
 		String content=mr.getParameter("content");
 		String fileName=mr.getFilesystemName("up_file");
+		
 		System.out.println("title : "+title);
 		System.out.println("writer : "+writer);
 		System.out.println("content : "+content);
 		System.out.println("fileName : "+fileName);
+		
 		Notice n=new Notice();
 		n.setNoticeTitle(title);
 		n.setNoticeWriter(writer);

@@ -29,7 +29,7 @@
 			<tr>
 				<th>제 목</th>
 				<td>
-					<input type="text" name="title " value="<%=n.getNoticeTitle() %>" required>
+					<input type="text" name="title" value="<%=n.getNoticeTitle() %>" required>
 				</td>
 			</tr>
 			<tr>

@@ -3,7 +3,6 @@
 <%@ page import="com.kh.notice.model.vo.Notice" %>
 <%
 	Notice n=(Notice)request.getAttribute("notice");
-
 %>    
 <%@ include file="/views/common/header.jsp"%>
      <style>

@@ -23,6 +23,7 @@ public class NoticeService {
 		return result;
 		
 	}
+	
 	public List<Notice> selectNoticeList(int cPage, int numPerPage){
 		Connection conn=getConnection();
 		List<Notice> list=dao.selectNoticeList(conn,cPage,numPerPage);
@@ -42,6 +43,18 @@ public class NoticeService {
 		int result=dao.insertNotice(conn,n);
 		if(result>0) {commit(conn);}
 		else {rollback(conn);}
+		close(conn);
+		return result;
+	}
+	
+	public int updateNotice(Notice n) {
+		Connection conn=getConnection();
+		int result=dao.updateNotice(conn, n);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
