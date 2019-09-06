@@ -7,7 +7,7 @@
 	
 	Board b =(Board)request.getAttribute("board");
 	String userId=(String)b.getBoardWriter();
-	String photo=(String)b.getBoardOriginalFilename();
+	String photo=(String)b.getBoardRenamedFilename();
 	
 	/* String photo=(String)request.getAttribute("photo"); */
 	/* String enPhoto = URLDecoder.decode(photo, "UTF-8"); */
@@ -68,7 +68,7 @@
 
     <script>
 	function fn_listBoard(){
-		location.href="<%=request.getContextPath()%>/board/boardList?cPage=<%=request.getAttribute("cPage")%>";
+		location.href="<%=request.getContextPath()%>/board/boardList?cPage=<%=request.getAttribute("cPage")%>"
 	}
     function fn_updateBoard(){
         

@@ -8,14 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import com.kh.board.model.vo.Board;
-import com.kh.notice.model.vo.Notice;
-
-import oracle.jdbc.proxy.annotation.Pre;
 
 
 public class BoardDAO {
@@ -145,7 +143,25 @@ public class BoardDAO {
 		}
 		return result;
 		
-		
+	}
+	
+	public int selectBoardNo(Connection conn) {
+		Statement stmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql="select seq_board_no.currval from dual";
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery(sql);
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(stmt);
+		}return result;
 	}
 
 }

@@ -47,6 +47,7 @@ public class BoardService {
 		Connection conn=getConnection();
 		int result=dao.insertBoard(conn,b);
 		if(result>0) {
+			result=dao.selectBoardNo(conn);
 			commit(conn);
 		}else {
 			rollback(conn);

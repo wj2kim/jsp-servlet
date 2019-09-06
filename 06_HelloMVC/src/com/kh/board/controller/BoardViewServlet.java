@@ -34,7 +34,13 @@ public class BoardViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int no=Integer.parseInt(request.getParameter("no"));
-		int cPage=Integer.parseInt(request.getParameter("cPage"));
+		
+		int cPage;
+		try {
+		cPage=Integer.parseInt(request.getParameter("cPage"));
+		}catch(NumberFormatException e) {
+			cPage=1;
+		}
 		
 		//쿠키값 확인하기 
 		Cookie[] cookies=request.getCookies();
@@ -58,8 +64,6 @@ public class BoardViewServlet extends HttpServlet {
 			c.setMaxAge(-1); // 브라우저가 close 되거나 로그아웃 했을때 삭제 
 			response.addCookie(c);
 		}
-		
-		System.out.println(boardCookieVal);
 		
 		
 		
